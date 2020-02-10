@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="stijl.css">
+
+</head>
+<body>
+    
+    <button onclick="subscribe()">send</button>
+    <script>
+    
+
+    addEventListener('load', async () => {
+        let sw = await navigator.serviceWorker.register('./sw.js')
+        console.log(sw)
+    })
+
+    async function subscribe() {
+        let name = 'Shannon';
+        let sw = await navigator.serviceWorker.ready;
+        let push = await sw.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: 'BOfJ7V6sB3Sm0lF5MH-wKp1RCOsz7qQPtb4Pt18PXorGELjZ5k7eDpsDyzrKTaKuPT1Xf9ZF5wwS6wHwu7vAEXw',
+
+        });
+        let data = { push, name };
+
+        
+        console.log(JSON.stringify(data));
+
+                fetch('/shannon', {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/json"
+                    },
+                    body: (JSON.stringify(data))
+                });
+                const response = await fetch('/send');
+        const json = await response.json();
+        console.log(json);
+        
+        // for (item in json) {
+            
+        //     fetch('/stuur', {
+        //             method: "POST",
+        //             headers: {
+        //                 "Content-type": "application/json"
+        //             },
+        //             body: (JSON.stringify(item))
+        //         });
+
+        //         const response = await fetch('/stuur');
+        // const jplay = await response.json();
+        // console.log(jplay);
+
+        // }
+         }
+    
+    </script>
+</body>
+</html>

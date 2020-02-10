@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+<style>
+p, span{
+  font-size: 3rem;
+  display:inline;
+}
+.blinking-cursor {
+  color: #2E3D48;
+  -webkit-animation: 1s blink step-end infinite;
+  -moz-animation: 1s blink step-end infinite;
+  -ms-animation: 1s blink step-end infinite;
+  -o-animation: 1s blink step-end infinite;
+  animation: 1s blink step-end infinite;
+}
+
+@keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: black;
+  }
+}
+
+@-moz-keyframes blink {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: black;
+  }
+}
+
+@-webkit-keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: black;
+  }
+}
+
+@-ms-keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: black;
+  }
+}
+
+@-o-keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: black;
+  }
+}
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <h1 id="typewriter" data-typewriter="Welkom bij pushnotification.nl ,Welkom bij pushnotification.nl,Welkom bij pushnotification.nl,Welkom bij pushnotification.nl,Welkom bij pushnotification.nl"></h1><span class="blinking-cursor">|</span>
+      </div>
+    <script>
+        
+    var typewriter = function(txt) {
+    var container = document.getElementById('typewriter'),
+      speed = 28,
+      i = 0,
+      wordsObj = txt.split(" ")
+    container.textContent = "";
+    console.log(txt)
+    runAllWords();
+    function runAllWords() {
+
+      if (i < wordsObj.length) {
+        var a = (i == 0) ? i : i - 1;
+        setTimeout(function() {
+          showWord(wordsObj[i], 0)
+        }, wordsObj[a].length * speed);
+      }
+    }
+
+    function showWord(word, countWord) {
+      if (countWord < word.length) {
+        setTimeout(function() {
+          showLetter(word, countWord)
+        }, speed);
+      } else {
+        container.textContent = container.textContent + " ";
+        i += 1;
+        runAllWords();
+      }
+      if (i === wordsObj.length) {
+        console.log('complete')
+      }
+    }
+
+    function showLetter(word, countWord) {
+      container.textContent = container.textContent + word[countWord];
+      showWord(word, countWord + 1);
+    }
+  }
+  // window.onload = typewriter();
+// var container = document.getElementById('typewriter'),
+//   dataText = container.dataset.typewriter,
+//   splitTxt = dataText.split(",")
+// for (var x = 0, ln = splitTxt.length; x < ln; x++) {
+//   setTimeout(typewriter(splitTxt[x]), x * 9000, x);
+// }
+
+
+var i = 0;
+function myLoop () {  
+//  create a loop function
+	
+   var dataType = document.getElementById('typewriter').dataset.typewriter,
+       w = dataType.split(',')
+   setTimeout(function () {    //  call a 3s setTimeout when the loop is called
+      typewriter(w[i]);          //  your code here
+      i++;                     //  increment the counter
+      if (i < w.length) {            //  if the counter < 10, call the loop function
+         myLoop();             //  ..  again which will trigger another 
+      }                        //  ..  setTimeout()
+   }, 3000)
+}
+
+myLoop();
+        
+        </script>
+</body>
+</html>
