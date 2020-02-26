@@ -19,7 +19,7 @@ const postsRoute = require('./routes/posts');
 app.use('/posts', postsRoute);  
 
 //connect to DB
-mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, () => 
+mongoose.connect('mongodb+srv://shannonp:Musicheroes20@cluster0-122wf.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true }, () => 
  console.log('Connected to DB')
  );
 
