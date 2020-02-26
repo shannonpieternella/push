@@ -39,7 +39,7 @@ app.listen(port, () => {
 
     let vapidKeys = {
     publicKey: 'BOfJ7V6sB3Sm0lF5MH-wKp1RCOsz7qQPtb4Pt18PXorGELjZ5k7eDpsDyzrKTaKuPT1Xf9ZF5wwS6wHwu7vAEXw',
-    privateKey: process.env.API_KEY
+    privateKey: '3Diq6h-UkqA8UwQVJXKZrPeOSktUVL-by7WN33ySKms'
   }
 
   push.setVapidDetails('mailto:shannonpieternella@gmail.com', vapidKeys.publicKey, vapidKeys.privateKey)
