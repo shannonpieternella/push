@@ -14,40 +14,6 @@
 
 
     <button onclick="subscribe()">send</button>
-    <script>
- 
-
-    addEventListener('load', async () => {
-        let sw = await navigator.serviceWorker.register('./sw.js')
-        console.log(sw)
-    })
-
-    async function subscribe() {
-        console.log('huh');
-        let name = 'Shannon';
-        let sw = await navigator.serviceWorker.ready;
-        let push = await sw.pushManager.subscribe({
-            userVisibleOnly: true,
-            applicationServerKey: 'BOfJ7V6sB3Sm0lF5MH-wKp1RCOsz7qQPtb4Pt18PXorGELjZ5k7eDpsDyzrKTaKuPT1Xf9ZF5wwS6wHwu7vAEXw',
-
-        });
-        let data = { push, name };
-
-        
-        console.log(JSON.stringify(data));
-
-                fetch('/api', {
-                    method: "POST",
-                    headers: {
-                        "Content-type": "application/json"
-                    },
-                    body: (JSON.stringify(data))
-                });
-                const response = await fetch('/api');
-        const json = await response.json();
-        console.log(json);
-        }
-    
-    </script>
+    <script src="client.js"></script>
 </body>
 </html>

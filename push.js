@@ -1,83 +1,40 @@
 const push = require('web-push');
 const express = require('express');
-const Datastore = require('nedb');
-require('dotenv').config()
-
-
+//const Datastore = require('nedb');
+const mongoose = require('mongoose');
+const cors = require('cors');
+//const database = new Datastore({ filename: 'database.db', autoload: true });
 const app = express();
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Starting server at ${port}`);
-});
+require('dotenv').config();
+
 app.use(express.static('public'));
 app.use(express.json({}));
 
-const database = new Datastore('database.db');
-database.loadDatabase();
+//Middlewares
+app.use(cors());
 
-const database2 = new Datastore('database2.db');
-database2.loadDatabase();
+//Import Routes
+const postsRoute = require('./routes/posts');
+
+app.use('/posts', postsRoute);  
+
+//connect to DB
+mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, () => 
+ console.log('Connected to DB')
+ );
+
+//Create payload
+//const payload = JSON.stringify({ title: 'Fyxed'});
 
 
-
-app.get('/send', (request, response) => {
-  database.find({}, (err, data) => {
-    for (i=0; i < data.length; i++) {
-
-      if (err) {
-        response.end();
-        return;
-      }
-      //console.log('het is gelukt!');
-      //response.json(data[1].push);
-      //console.log(data.length);
-      //console.log(data.length);
-      console.log(JSON.stringify(data[i].name));
-      // let sub= JSON.stringify(data[i].push);
-      // push.sendNotification(sub, 'test message')
-      // console.log(JSON.stringify(sub));
-      
-    };
-  });
-
+  //listen to the server  
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+  console.log(`Starting server at ${port}`);
 });
 
-
-
-app.post('/shannon', (request, response) => {
-  database.find({}, (err, data) => {
-  console.log('Endpoint opgeslagen');
-  console.log(request.body);
-  let sub= '{"endpoint":"https://fcm.googleapis.com/fcm/send/e5aE3Uc0vts:APA91bFwUJZHXo1dMsnNXghRjy2QKwNBGCXLM2XwHoLrjefLtr5FWw9vliF1vSfKVW7ttyOC5KsLxdu1SWFQ0hNro3HzQGV9ALyhQStEF93xCpcDS5K7f4vSVrGwzGHsT7QMvm6q4l2b","expirationTime":null,"keys":{"p256dh":"BJ_7KL7hriotDj09vntBwFH-TYiWC9VaOSW86vrkDgkQnGLkkNxole_V9CDFg95DjMf7dLd__UP3N78OtJ6XXeg","auth":"lXhZxZxqNpEcx0K9ifhXmw"}}';
-  push.sendNotification(sub, 'test message')
-
- 
-});
-}); 
-
-
-  app.get('/api', (request, response) => {
-  database.find({}, (err, data) => {
-    //for (i=0; i < data.length; i++) {
-
-      if (err) {
-        response.end();
-        return;
-      }
-      console.log('het is gelukt!');
-      response.json('het is gelukt bro')
-         
-  });
-
-});
-
-
-
-app.post('/api', (request, response) => {
-    console.log('Endpoint opgeslagen');
-    database.insert(request.body);
-     
-}); 
+//const database = new Datastore('database.db');
+//Database.loadDatabase();
 
 
     let vapidKeys = {
@@ -86,5 +43,3 @@ app.post('/api', (request, response) => {
   }
 
   push.setVapidDetails('mailto:shannonpieternella@gmail.com', vapidKeys.publicKey, vapidKeys.privateKey)
-
-  
