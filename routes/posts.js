@@ -7,9 +7,9 @@ const push = require('web-push');
 //count leads
 
 router.post('/count', async (request, response) => {
-    const filteren = request.body.segment;
+    const filteren = request.body.body;
     console.log(filteren);
-    const posts = await Post.find({segment:filteren});
+    const posts = await Post.find({naam:filteren});
     try{
     
     console.log(posts.length);
