@@ -116,7 +116,7 @@ router.get('/', async (request, response) => {
 
 //save to database
 
-  router.post('/', async (request, response) => {
+   router.post('/', async (request, response) => {
     try{
 
     const post = new Post({
