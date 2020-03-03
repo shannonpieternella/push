@@ -23,11 +23,19 @@ router.post('/count', async (request, response) => {
 
 router.post('/broadcast', async (request, response) => {
     //console.log(request.body);
-    const filteren = request.body.body;
-    const titel = request.body.title;
-    const text = request.body.text;
-    const plaatje = request.body.pic;
-    const link = request.body.url;
+    const myFunc = async (param1) => {
+
+        
+
+    // console.log(param1.body.title);
+    // console.log(param1.body.);
+    // console.log(param1.body.title);
+        
+    const filteren = param1.body.body;
+    const titel = param1.body.title;
+    const text = param1.body.text;
+    const plaatje = param1.body.pic;
+    const link = param1.body.url;
     console.log(filteren);
     const posts = await Post.find({naam:filteren});
     for (i=0; i < posts.length; i++) {
@@ -42,7 +50,7 @@ router.post('/broadcast', async (request, response) => {
     let stuur = posts[i].endpoint.pushkey;
     push.sendNotification(stuur, payload).catch(err => console.error(err));
  //   notificationclick.sendNotification(stuur, payload).catch(err => console.error(err));
-
+ clearTimeout(myFunc);
 
     //console.log(filteren);
     console.log(posts.length);
@@ -54,7 +62,13 @@ router.post('/broadcast', async (request, response) => {
 }
 
     }
+
+
+
+    }
+setTimeout(myFunc, request.body.tijd, request);
 });
+
 
 router.post('/segment', async (request, response) => {
     //console.log(request.body);
