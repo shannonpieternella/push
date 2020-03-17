@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Post = require('../models/Post');
+const Affiliate = require('../models/Affiliate');
 const push = require('web-push');
 
 
