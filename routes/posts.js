@@ -188,12 +188,17 @@ res.json(removedPost);
 //Update a post
 
 router.patch('/:postId', async (req, res) => {
+    const count = Number(req.body.clicks);
+    
+    const vind = await Affiliate.find({_id:req.params.postId});
+    
+    const total = vind + count;
 try {
-    const updatedPost = await Post.updateOne(
-        { _id: req.params.postId },
-        {$set: {naam: req.body.naam }
-    });
-res.json(updatedPost);
+    const plus = vind[0].clicks;
+    const plusNummer = Number(plus);
+
+    const updatedPost = await Affiliate.updateOne({ _id: req.params.postId }, {$set: {clicks: count + plusNummer}});
+res.json(plusNummer);
 
 }catch(err){
     res.json({message: err});
