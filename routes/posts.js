@@ -21,6 +21,29 @@ router.post('/count', async (request, response) => {
     }
 });
 
+
+router.post('/affiliateregister', async (request, response) => {
+      
+    
+        const analytics = new Affiliate({
+        
+            clicks: request.body.clicks,
+            naam: request.body.naam,
+            affiliateID: request.body.affiliateID,
+            date: request.body.date
+    
+        });
+        try{
+        const savedAnalytics = await analytics.save();
+        response.json(savedAnalytics);
+    
+    }catch(err){
+        response.json({message: err});
+
+    }
+});
+
+
 router.post('/broadcast', async (request, response) => {
     //console.log(request.body);
     const myFunc = async (param1) => {
