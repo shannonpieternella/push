@@ -13,6 +13,12 @@ const AffiliateSchema = mongoose.Schema({
         required: false
 
     },
+        
+        subscriptie: {
+        type: Object,
+        required: false
+
+    },
 
     affiliateID: {
         type: String,
