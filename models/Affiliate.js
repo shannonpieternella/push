@@ -3,6 +3,12 @@ const mongoose = require('mongoose');
 const AffiliateSchema = mongoose.Schema({
         
     clicks: {
+        type: Number,
+        required: false
+
+     },
+
+     registercount: {
         type: String,
         required: false
 
@@ -13,9 +19,33 @@ const AffiliateSchema = mongoose.Schema({
         required: false
 
     },
-        
-        subscriptie: {
+
+    nameclient: {
         type: Object,
+        required: false
+
+    },
+
+    free: {
+        type: Number,
+        required: false
+
+    },
+
+    special: {
+        type: Number,
+        required: false
+
+    },
+
+    standard: {
+        type: Number,
+        required: false
+
+    },
+
+    pro: {
+        type: Number,
         required: false
 
     },
