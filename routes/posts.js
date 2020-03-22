@@ -22,8 +22,8 @@ router.post('/count', async (request, response) => {
     }
 });
 
-router.post('/:postId', async (request, response) => {
-      
+router.post('/h', async (request, response) => {
+    response.json('het werkt 1');
         
     // const analytics = new Affiliate({
     
@@ -38,13 +38,12 @@ router.post('/:postId', async (request, response) => {
 try{
     const proPost = await Affiliate.find({ _id: req.params.postId });
     console.log(proPost[0].clicks); 
-    console.log(proPost);
+    response.json('het werkt');
 }catch(err){
     response.json({message: err});
-
+    response.json('het werkt niet');
 }
 });
-
 
 router.post('/affiliateregister', async (request, response) => {
  
@@ -72,7 +71,6 @@ router.post('/affiliateregister', async (request, response) => {
         response.json('daymn');
     }
 });
-
 
 
 router.post('/broadcast', async (request, response) => {
