@@ -22,6 +22,29 @@ router.post('/count', async (request, response) => {
     }
 });
 
+router.post('/:postId', async (request, response) => {
+      
+        
+    // const analytics = new Affiliate({
+    
+    //     clicks: request.body.clicks,
+    //     naam: request.body.naam,
+    //     affiliateID: request.body.affiliateID,
+    //     date: request.body.date
+
+    // });
+//    const posts = await Affiliate.find({naam: request.body.naam});
+
+try{
+    const proPost = await Affiliate.find({ _id: req.params.postId });
+    console.log(proPost[0].clicks); 
+    console.log(proPost);
+}catch(err){
+    response.json({message: err});
+
+}
+});
+
 
 router.post('/affiliateregister', async (request, response) => {
       
@@ -31,6 +54,12 @@ router.post('/affiliateregister', async (request, response) => {
             clicks: request.body.clicks,
             naam: request.body.naam,
             affiliateID: request.body.affiliateID,
+            nameclient: request.body.nameclient,
+            registercount: request.body.registercount,
+            special: request.body.special,
+            standard: request.body.standard,
+            pro: request.body.pro,
+            free: request.body.free,
             date: request.body.date
     
         });
@@ -48,8 +77,6 @@ router.post('/affiliateregister', async (request, response) => {
 router.post('/broadcast', async (request, response) => {
     //console.log(request.body);
     const myFunc = async (param1) => {
-
-        
 
     // console.log(param1.body.title);
     // console.log(param1.body.);
@@ -80,7 +107,7 @@ router.post('/broadcast', async (request, response) => {
     console.log(posts.length);
     console.log(request.body.title);
     console.log(request.body.text);
-
+    
 }catch(err){
     response.json({message:err});
 }
@@ -120,7 +147,7 @@ router.post('/segment', async (request, response) => {
     //console.log(filteren);
     console.log(posts.length);
     console.log(request.body.title);
-    console.log(request.body.text);
+    console.log(request.body.text)
 
 }catch(err){
     response.json({message:err});
@@ -140,7 +167,7 @@ router.get('/', async (request, response) => {
 
 //save to database
 
-   router.post('/', async (request, response) => {
+  router.post('/', async (request, response) => {
     try{
 
     const post = new Post({
@@ -149,9 +176,12 @@ router.get('/', async (request, response) => {
         segment: request.body.segment,
         date: request.body.date
     });
+
     response.json(post);
+    response.json(analytics);
     
         const savedPost = await post.save();
+        
        // response.json(savedPost);  
     
     }catch(err){
@@ -176,9 +206,9 @@ router.get('/', async (request, response) => {
   
     //Delete Post
 
-router.delete('/:postId', async (req, res) => {
+router.delete('/', async (req, res) => {
     try{
-const removedPost = await Post.remove({ _id: req.params.postId});
+const removedPost = await Post.remove({});
 res.json(removedPost);
     }catch(err){
         res.json({message: err});
@@ -189,17 +219,55 @@ res.json(removedPost);
 //Update a post
 
 router.patch('/:postId', async (req, res) => {
-    const count = Number(req.body.clicks);
-    
+    const count = req.body.clicks;
+    const countFree = req.body.free; 
+    const countSpecial = req.body.special;
+    const countStandard = req.body.standard;
+    const countPro = req.body.pro;
+    const nameClient = req.body.nameclient;
     const vind = await Affiliate.find({_id:req.params.postId});
-    
-    const total = vind + count;
-try {
+
     const plus = vind[0].clicks;
     const plusNummer = Number(plus);
 
-    const updatedPost = await Affiliate.updateOne({ _id: req.params.postId }, {$set: {clicks: count + plusNummer}});
-res.json(plusNummer);
+    const freeAccount = vind[0].free;
+    const freeAccountNummer = Number(freeAccount);
+
+    const specialAccount = vind[0].special;
+    const specialAccountNummer = Number(specialAccount);
+
+    const standardAccount = vind[0].standard;
+    const standardAccountNummer = Number(standardAccount);
+
+    const proAccount = vind[0].pro;
+    const proAccountNummer = Number(proAccount);
+
+   // Check of if (TRUE) statements kan helpen met het afscheiden van updates
+    if (countFree === 1) {
+    const freePost = await Affiliate.updateOne({ _id: req.params.postId }, {$set: {free: countFree + freeAccountNummer, nameclient: nameClient}});
+    console.log('free');
+}
+
+    else if (countSpecial === 1) {
+        const specialPost = await Affiliate.updateOne({ _id: req.params.postId }, {$set: {special: countSpecial + specialAccountNummer, nameclient: nameClient}});
+        console.log('special');
+    }
+
+    else if (countStandard === 1) {
+        const standardPost = await Affiliate.updateOne({ _id: req.params.postId }, {$set: {standard: countStandard + standardAccountNummer, nameclient: nameClient }});
+        console.log('standard');
+    }else if (countPro === 1){ 
+        const proPost = await Affiliate.updateOne({ _id: req.params.postId }, {$set: {pro: countPro + proAccountNummer, nameclient: nameClient }});
+        console.log('pro');   
+    }
+        
+    try {
+        console.log('click');
+    const clicksPost = await Affiliate.updateOne({ _id: req.params.postId }, {$set: {clicks: count + plusNummer, nameclient: nameClient}});
+    
+    
+
+res.json(vind);
 
 }catch(err){
     res.json({message: err});
