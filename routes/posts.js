@@ -22,23 +22,14 @@ router.post('/count', async (request, response) => {
     }
 });
 
-router.post('/h', async (request, response) => {
-    response.json('het werkt 1');
+
+router.post('/getstatistics', async (request, response) => {
+   
         
-    // const analytics = new Affiliate({
-    
-    //     clicks: request.body.clicks,
-    //     naam: request.body.naam,
-    //     affiliateID: request.body.affiliateID,
-    //     date: request.body.date
-
-    // });
-//    const posts = await Affiliate.find({naam: request.body.naam});
-
 try{
-    const proPost = await Affiliate.find({ _id: req.params.postId });
-    console.log(proPost[0].clicks); 
-    response.json('het werkt');
+    const proPost = await Affiliate.find({ _id: request.body._id });
+    console.log(proPost); 
+    response.json(proPost);
 }catch(err){
     response.json({message: err});
     response.json('het werkt niet');
