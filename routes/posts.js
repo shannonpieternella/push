@@ -47,7 +47,7 @@ try{
 
 
 router.post('/affiliateregister', async (request, response) => {
-      
+ 
     
         const analytics = new Affiliate({
         
@@ -68,10 +68,11 @@ router.post('/affiliateregister', async (request, response) => {
         response.json(savedAnalytics);
     
     }catch(err){
-        response.json({message: err});
-
+       // response.json({message: err});
+        response.json('daymn');
     }
 });
+
 
 
 router.post('/broadcast', async (request, response) => {
