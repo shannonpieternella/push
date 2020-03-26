@@ -265,4 +265,63 @@ res.json(vind);
 }
 });
 
+//update a post -
+
+router.patch('/min/:postId', async (req, res) => {
+    const count = req.body.clicks;
+    const countFree = req.body.free; 
+    const countSpecial = req.body.special;
+    const countStandard = req.body.standard;
+    const countPro = req.body.pro;
+    const nameClient = req.body.nameclient;
+    const vind = await Affiliate.find({_id:req.params.postId});
+
+    const plus = vind[0].clicks;
+    const plusNummer = Number(plus);
+
+    const freeAccount = vind[0].free;
+    const freeAccountNummer = Number(freeAccount);
+
+    const specialAccount = vind[0].special;
+    const specialAccountNummer = Number(specialAccount);
+
+    const standardAccount = vind[0].standard;
+    const standardAccountNummer = Number(standardAccount);
+
+    const proAccount = vind[0].pro;
+    const proAccountNummer = Number(proAccount);
+
+   // Check of if (TRUE) statements kan helpen met het afscheiden van updates
+    if (countFree === 1) {
+    const freePost = await Affiliate.updateOne({ _id: req.params.postId }, {$set: {free: countFree - freeAccountNummer, nameclient: nameClient}});
+    console.log('free min');
+}
+
+    else if (countSpecial === 1) {
+        const specialPost = await Affiliate.updateOne({ _id: req.params.postId }, {$set: {special: countSpecial - specialAccountNummer, nameclient: nameClient}});
+        console.log('special min');
+    }
+
+    else if (countStandard === 1) {
+        const standardPost = await Affiliate.updateOne({ _id: req.params.postId }, {$set: {standard: countStandard - standardAccountNummer, nameclient: nameClient }});
+        console.log('standard min');
+    }else if (countPro === 1){ 
+        const proPost = await Affiliate.updateOne({ _id: req.params.postId }, {$set: {pro: countPro - proAccountNummer, nameclient: nameClient }});
+        console.log('pro min');   
+    }
+        
+    try {
+        console.log('click');
+    const clicksPost = await Affiliate.updateOne({ _id: req.params.postId }, {$set: {clicks: count - plusNummer, nameclient: nameClient}});
+    
+    
+
+res.json(vind);
+
+}catch(err){
+    res.json({message: err});
+
+}
+});
+
   module.exports = router;
