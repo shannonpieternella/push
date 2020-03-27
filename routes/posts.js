@@ -312,7 +312,7 @@ router.patch('/min/:postId', async (req, res) => {
         
     try {
         console.log('click');
-    const clicksPost = await Affiliate.updateOne({ _id: req.params.postId }, {$set: {clicks: count - plusNummer, nameclient: nameClient}});
+    const clicksPost = await Affiliate.updateOne({ _id: req.params.postId }, {$set: {clicks: count + plusNummer, nameclient: nameClient}});
     
     
 
