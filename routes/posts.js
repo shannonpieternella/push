@@ -175,8 +175,8 @@ router.get('/', async (request, response) => {
        // response.json(savedPost);  
     
     }catch(err){
-        response.json({message: err})
-
+        response.json('not working')
+      
     }
 });
     
