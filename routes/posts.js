@@ -167,16 +167,16 @@ router.get('/', async (request, response) => {
         date: request.body.date
     });
 
-    response.json(post);
-    response.json(analytics);
+    //response.json(post);
+    //response.json(analytics);
     
         const savedPost = await post.save();
         
-       // response.json(savedPost);  
+       response.json(savedPost);  
     
     }catch(err){
         response.json({message: err})
-      
+
     }
 });
     
