@@ -172,7 +172,7 @@ router.get('/', async (request, response) => {
     
         const savedPost = await post.save();
         
-       response.json(savedPost);  
+       response.json("success");  
     
     }catch(err){
         response.json({message: err})
