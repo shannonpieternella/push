@@ -150,7 +150,7 @@ router.post('/segment', async (request, response) => {
 
 router.get('/', async (request, response) => {
     
-    response.json("hey zie je dit");
+    response.json("success");
 
 });
 
